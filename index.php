@@ -1,9 +1,3 @@
-<?php
-include './utils.php';
-
-checkDomainAccess();
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

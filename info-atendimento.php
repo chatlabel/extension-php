@@ -1,10 +1,5 @@
 <?php
-include './utils.php';
-
-checkDomainAccess();
-
 const API_TOKEN = '*****';
-
 $statusAtendimento = [
   'automatico', 'aguardando', 'manual', 'finalizado', 'pesquisa_satisfacao', 'fora_de_hora'
 ];
