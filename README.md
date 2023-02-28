@@ -1,6 +1,7 @@
 # Exemplo extensão WL.
 
-Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ele fornece um objeto lobal `window.WlExtensions`, para utilizar basta importar a biblioteca no seu arquivo html.
+Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ele fornece um objeto global `window.WlExtensions`, para utilizar basta importar a biblioteca no seu arquivo html.
+
 Ex:
 
 ~~~
