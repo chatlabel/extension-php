@@ -11,11 +11,15 @@ Ex:
 - Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
 
 
-Podemos definir botões no topo da lista de contatos, ou topo da tela atendimento.
+Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
 
 - Lista de contatos, `contacts-list`
 
 ![Lista de contatos](./docs/prints/list-contacts.png)
+
+- Lista de atendimento, `attendance-list`
+
+![Lista de contatos](./docs/prints/attendance-list.png)
 
 - Topo da tela atendimento, `attendance-view`
 
