@@ -89,6 +89,18 @@
                 });
               },
             }
+          ],
+          'attendance-list': [
+            {
+              text: 'Lista de ações',
+              callback: () => {
+                window.WlExtension.modal({
+                  title: 'Lista de ações',
+                  url: 'http://localhost/extension-demo/acoes.php',
+                  maxWidth: '500px'
+                });
+              },
+            }
           ]
         }
       })
