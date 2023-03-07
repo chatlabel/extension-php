@@ -102,7 +102,52 @@
               },
             }
           ]
-        }
+        },
+        navbar: [
+          {
+            id: 'group_extensao_1',
+            icon_url: 'http://localhost/docs/shopping.png',
+            text: 'Teste',
+            type: 'group', // group / item
+          },
+          {
+            id: 'ext_1',
+            type: 'item',
+            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            text: 'Extensao item',
+            parentId: 'modules',
+            callback: () => {
+              window.WlExtension.openPage({
+                url: "https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme"
+              })
+            }
+          },
+          {
+            id: 'ext_2',
+            type: 'item',
+            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            text: 'Investing',
+            parentId: 'group_extensao_1',
+            callback: () => {
+              console.log('Stack overflow')
+              window.WlExtension.openPage({
+                url: "https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme"
+              })
+            }
+          },
+          {
+            id: 'ext_3',
+            type: 'item',
+            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            text: 'Yahoo Finance',
+            parentId: 'group_extensao_1',
+            callback: () => {
+              window.WlExtension.openPage({
+                url: "https://finance.yahoo.com/quote/YM%3DF?p=YM%3DF"
+              })
+            }
+          },
+        ]
       })
 
       $('.loader').hide();

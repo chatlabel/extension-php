@@ -10,6 +10,7 @@ Ex:
 
 - Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
 
+## Botões de ações
 
 Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
 
@@ -24,6 +25,52 @@ Podemos definir botões no topo da lista de contatos,lista de atendimento ou top
 - Topo da tela atendimento, `attendance-view`
 
 ![Topo da tela atendimento](./docs/prints/attendance-view.png)
+
+
+## Novo menu na navbar
+
+Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initilize()`.
+
+~~~
+  navbar: [
+    {
+      id: 'group_extension',
+      icon_url: 'http://localhost/docs/shopping.png',
+      text: 'Teste',
+      type: 'group',
+    },
+    {
+      id: 'ext_1',
+      type: 'item',
+      icon_url: 'http://localhost/docs/info.png', // icon 16x16
+      text: 'Extensao item',
+      parentId: 'modules',
+      callback: () => {
+        window.WlExtension.openPage({
+          url: "https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme"
+        })
+      }
+    }
+  ]
+~~~
+
+
+Opções de tipo de menu:
+- `group` - cria um grupo.
+- `item` - Cria um botão, podemos pegar evento `callback` na propriedade quando for clicado.
+
+
+Tambem podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
+
+- Atendimentos  id: `services`
+- Indicadores id: `indications`
+- Ajuda id: `help`
+- Administrativos id: `admins`
+- Módulos id: `modules`
+- Financeiro id: `financial`
+
+
+![Menu lateral](./docs/prints/navbar.png)
 
 Ex:
 
@@ -54,12 +101,55 @@ Ex:
             },
           }
         ]
-      }
+    },
+    navbar: [
+      {
+        id: 'group_extension',
+        icon_url: 'http://localhost/docs/shopping.png',
+        text: 'Teste',
+        type: 'group',
+      },
+      {
+        id: 'ext_1',
+        type: 'item',
+        icon_url: 'http://localhost/docs/info.png', // icon 16x16
+        text: 'Extensao item',
+        parentId: 'modules',
+        callback: () => {
+          window.WlExtension.openPage({
+            url: "https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme"
+          })
+        }
+      },
+      {
+        id: 'ext_2',
+        type: 'item',
+        icon_url: 'http://localhost/docs/info.png', // icon 16x16
+        text: 'Investing',
+        parentId: 'group_extension',
+        callback: () => {
+          window.WlExtension.openPage({
+            url: "https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme"
+          })
+        }
+      },
+      {
+        id: 'ext_3',
+        type: 'item',
+        icon_url: 'http://localhost/docs/info.png', // icon 16x16
+        text: 'Yahoo Finance',
+        parentId: 'group_extension',
+        callback: () => {
+          window.WlExtension.openPage({
+            url: "https://finance.yahoo.com/quote/YM%3DF?p=YM%3DF"
+          })
+        }
+      },
+    ]
   })
 ~~~
 
 *Nos botões tipo `attendance-view` o callback retorna um objeto no primeiro argumento com atendimento em foco.*
-
 
 
 
@@ -142,4 +232,13 @@ Função retorna um objeto com `userId` e `systemId`.
       console.log(data.userId);
       console.log(data.systemKey)
     })
+~~~
+
+
+## Abrir página dentro do sistema
+
+~~~
+  window.WlExtension.openPage({
+    url: 'https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme'
+  });
 ~~~
