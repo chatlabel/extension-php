@@ -2,17 +2,37 @@
 
 Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ele fornece um objeto global `window.WlExtensions`, para utilizar basta importar a biblioteca no seu arquivo html.
 
+
+### Lista de métodos da `window.WLExtensions`
+
+ - [WLExtensions.initilize(options);](initilize)
+ - [WLExtensions.modal(options);](#modal)
+ - [WLExtensions.closeModal();](#close-modal)
+ - [WLExtensions.alert(options);](#alert)
+ - [WLExtensions.confirmDialog(options);](#confirm-dialog)
+ - [WLExtensions.alert(options);](#alert)
+ - [WLExtensions.getInfoChannels();](#get-channels)
+ - [WLExtensions.getInfoUser();](#get-user)
+ - [WLExtensions.openPage();](#open-page)
+
+
+
 Ex:
 
 ~~~
 <script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
 ~~~
 
+--------
+
+## .initilize [](#initilize)
+
+
 - Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
 
-## Botões de ações
+### Botões de ações
 
-Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
+  Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
 
 - Lista de contatos, `contacts-list`
 
@@ -27,7 +47,7 @@ Podemos definir botões no topo da lista de contatos,lista de atendimento ou top
 ![Topo da tela atendimento](./docs/prints/attendance-view.png)
 
 
-## Novo menu na navbar
+### Novo menu na navbar
 
 Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initilize()`.
 
@@ -72,7 +92,7 @@ Tambem podemos criar um item dentro de um menu já existente, colocando o id do 
 
 ![Menu lateral](./docs/prints/navbar.png)
 
-Ex:
+Ex: 
 
 ~~~
   window.WlExtensions.initilize({
@@ -156,7 +176,7 @@ Ex:
 # Funções adicionais
 
 
-## Abrir modal
+## Abrir modal <span id="modal"></span>
 
 ~~~
   window.WlExtension.modal({
@@ -169,7 +189,7 @@ Ex:
   });
 ~~~
 
-## Fecha modal
+## Fecha modal <span id="close-modal"></span>
 ao usar funcao `.closeModal()` podemos um objeto com argumentos para recuperar no callback definido na função `.modal({})`.
 
 ~~~
@@ -179,7 +199,7 @@ ao usar funcao `.closeModal()` podemos um objeto com argumentos para recuperar n
   });
 ~~~
 
-## Emitir alerta
+## Emitir alerta <span id="alert"></span>
 Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
 
 ~~~
@@ -190,7 +210,7 @@ Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
 ~~~
 
 
-## Abrir tela de confirmação
+## Abrir tela de confirmação <span id="confirm-dialog"></span>
 
 ~~~
   window.WlExtension.confirmDialog({
@@ -202,7 +222,7 @@ Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
   });
 ~~~
 
-## Abrir tela de confirmação
+## Abrir um alerta <span id="alert"></span>
 
 ~~~
   window.WlExtension.alert({
@@ -213,7 +233,7 @@ Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
 
 
 
-## Busca lista de canal disponível para usuário
+## Busca lista de canal disponível para usuário <span id="get-channels"></span>
 
 ~~~
   window.WlExtension.getInfoChannels()
@@ -222,7 +242,7 @@ Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
     });
 ~~~
 
-## Busca infomação do usuário logado.
+## Busca infomação do usuário logado. <span id="get-user"></span>
 
 Função retorna um objeto com `userId` e `systemId`.
 
@@ -235,7 +255,7 @@ Função retorna um objeto com `userId` e `systemId`.
 ~~~
 
 
-## Abrir página dentro do sistema
+## Abrir página dentro do sistema <span id="open-page"></span>
 
 ~~~
   window.WlExtension.openPage({
