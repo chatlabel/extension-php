@@ -25,7 +25,7 @@ Ex:
 
 --------
 
-## .initilize [](#initilize)
+## .initilize  <span id="initilize"></span>
 
 
 - Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
