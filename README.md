@@ -99,6 +99,7 @@ Ex:
     buttons: {
       'contacts-list': [
           {
+            icon_url: 'http://localhost/docs/profile.png', // Opcional icone 25x25 
             text: 'Botao Alert',
             callback: () => {
               window.WlExtension.alert({
