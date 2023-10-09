@@ -13,7 +13,7 @@
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
 
-  <script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
+  <script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient-0.0.2.js"></script>
 
   <style>
     html,
@@ -65,8 +65,6 @@
                   title: 'Dialog de confirmacao',
                   callback: (confirm) => {
                     console.log(confirm);
-                    
-
                     window.WlExtension
                       .getInfoChannels()
                       .then((data)=> {
@@ -79,10 +77,11 @@
           ],
           'attendance-view': [
             {
+              icon_url: 'https://chatlabel.com/extension-demo/docs/profile.png',
               text: 'Ver Perfil',
               callback: (atendimento) => {
                 window.WlExtension.modal({
-                  url: `http://localhost/info-atendimento.php?atendimentoId=${atendimento.atendimentoId}`,
+                  url: `https://chatlabel.com/extension-demo/info-atendimento.php?atendimentoId=${atendimento.atendimentoId}`,
                   title: 'Perfil',
                   maxWidth: '500px',
                   height: '300px'
@@ -96,24 +95,54 @@
               callback: () => {
                 window.WlExtension.modal({
                   title: 'Lista de ações',
-                  url: 'http://localhost/extension-demo/acoes.php',
+                  url: 'https://chatlabel.com/extension-demo/acoes.php',
                   maxWidth: '500px'
                 });
               },
             }
           ]
         },
+        events: {
+          'onOpenAttendance': (attendance) => {
+            // Evento é emitido quando clicado no atendimento
+            console.log(`onOpenAttendance`,attendance);
+          },
+          'onFocusAttendance': (attendance) => {
+            // Evento é emitido quando atendimento recebe foco
+            console.log(`onFocusAttendance`,attendance);
+          },
+          'onCloseAttendance': (attendance) => {
+            // Evento é emitido quando é fechado a tela do atendimento
+            console.log(`onCloseAttendance`,attendance);
+          },
+          'onOpenHistoricAttendance': (attendance) =>{
+            // Evento é emitido quando é clicado no atendimento no histórico de atendimento.
+            console.log(`onOpenHistoricAttendance`,attendance);
+          },
+          'onCloseHistoricAttendance': (attendance) =>{
+            // Evento é emitido quando é fechado a tela do atendimento na página histórico de atendimento
+            console.log(`onCloseHistoricAttendance`,attendance);
+          },
+          'onChatPage': () =>{
+            // Evento é emitido quando é navegado para tela de atendimentos.
+            console.log(`onChatPage`);
+          },
+          'onHistoricPage': () =>{
+            // Evento é emitido quando é navegado para página histórico de atendimentos.
+            console.log(`onHistoricPage`);
+          }
+        },
         navbar: [
           {
             id: 'group_extensao_1',
-            icon_url: 'http://localhost/docs/shopping.png',
+            icon_url: 'https://chatlabel.com/extension-demo/docs/shopping.png',
             text: 'Teste',
             type: 'group', // group / item
           },
           {
             id: 'ext_1',
             type: 'item',
-            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            icon_url: 'https://chatlabel.com/extension-demo/docs/info.png', // icon 16x16
             text: 'Extensao item',
             parentId: 'modules',
             callback: () => {
@@ -125,7 +154,7 @@
           {
             id: 'ext_2',
             type: 'item',
-            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            icon_url: 'https://chatlabel.com/extension-demo/docs/info.png', // icon 16x16
             text: 'Investing',
             parentId: 'group_extensao_1',
             callback: () => {
@@ -138,7 +167,7 @@
           {
             id: 'ext_3',
             type: 'item',
-            icon_url: 'http://localhost/docs/info.png', // icon 16x16
+            icon_url: 'https://chatlabel.com/extension-demo/docs/info.png', // icon 16x16
             text: 'Yahoo Finance',
             parentId: 'group_extensao_1',
             callback: () => {
@@ -171,10 +200,17 @@
       $('#buscar-acoes').click(()=>{
         window.WlExtension.modal({
           title: 'Lista de ações',
-          url: 'http://localhost/acoes.php',
+          url: 'https://chatlabel.com/extension-demo/acoes.php',
           maxWidth: '500px'
         });
       });
+
+      $('#recarregar-widget').click(()=>{
+        // Recarrega nova pagina no widget da extensão.
+        window.WlExtension.load({
+          url: 'https://chatlabel.com/extension-demo/acoes.php'
+        });
+      })
     });
   </script>
 </head>
@@ -184,6 +220,7 @@
     <button id="buscar-dados" class="btn btn-primary my-2"> Buscar dados empresa</button>
     <button id="buscar-canais" class="btn btn-primary my-2"> Buscar dados canais </button>
     <button id="buscar-acoes" class="btn btn-primary my-2"> Lista de funções </button>
+    <button id="recarregar-widget" class="btn btn-primary my-2"> Recarregar iframe </button>
   <div>
 
   <hr>

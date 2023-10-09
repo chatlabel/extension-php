@@ -5,7 +5,7 @@ Montamos uma pequena biblioteca javascript para facilitar a interação com noss
 
 ### Lista de métodos da `window.WLExtensions`
 
- - [WLExtensions.initilize(options);](initilize)
+ - [WLExtensions.initilize(options);](#initilize)
  - [WLExtensions.modal(options);](#modal)
  - [WLExtensions.closeModal();](#close-modal)
  - [WLExtensions.alert(options);](#alert)
@@ -14,13 +14,13 @@ Montamos uma pequena biblioteca javascript para facilitar a interação com noss
  - [WLExtensions.getInfoChannels();](#get-channels)
  - [WLExtensions.getInfoUser();](#get-user)
  - [WLExtensions.openPage();](#open-page)
-
+ - [WLExtensions.load();](#load)
 
 
 Ex:
 
 ~~~
-<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
+<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient-0.0.2.js"></script>
 ~~~
 
 --------
@@ -28,7 +28,7 @@ Ex:
 ## .initilize  <span id="initilize"></span>
 
 
-- Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
+- Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definir botões e ações que serão configuradas quando a sua extensão for carregada no sistema.
 
 ### Botões de ações
 
@@ -92,6 +92,20 @@ Tambem podemos criar um item dentro de um menu já existente, colocando o id do 
 
 ![Menu lateral](./docs/prints/navbar.png)
 
+
+### Eventos 
+O sistema emite vários eventos, e podemos defini-los na propriedade events. Abaixo, segue a lista de eventos emitidos pelo sistema: 
+
+* `onOpenAttendance`: Evento é emitido quando se clica no atendimento.
+* `onFocusAttendance`: Evento é emitido quando o atendimento recebe foco.
+* `onCloseAttendance`: Evento é emitido quando a tela do atendimento é fechada.
+* `onOpenHistoricAttendance`: Evento é emitido quando se clica no atendimento no histórico de atendimento.
+* `onCloseHistoricAttendance`: Evento é emitido quando a tela do atendimento é fechada na página de histórico de atendimento.
+* `onChatPage`: Evento é emitido quando se navega para a tela de atendimentos.
+* `onHistoricPage`: Evento é emitido quando se navega para a página de histórico de atendimentos.
+
+
+
 Ex: 
 
 ~~~
@@ -122,6 +136,36 @@ Ex:
             },
           }
         ]
+    },
+    events: {
+      'onOpenAttendance': (attendance) => {
+        // Evento é emitido quando se clica no atendimento.
+        console.log(`onOpenAttendance`,attendance);
+      },
+      'onFocusAttendance': (attendance) => {
+        // Evento é emitido quando o atendimento recebe foco.
+        console.log(`onFocusAttendance`,attendance);
+      },
+      'onCloseAttendance': (attendance) => {
+        // Evento é emitido quando a tela do atendimento é fechada.
+        console.log(`onCloseAttendance`,attendance);
+      },
+      'onOpenHistoricAttendance': (attendance) =>{
+        // Evento é emitido quando se clica no atendimento no histórico de atendimento.
+        console.log(`onOpenHistoricAttendance`,attendance);
+      },
+      'onCloseHistoricAttendance': (attendance) =>{
+        // Evento é emitido quando a tela do atendimento é fechada na página de histórico de atendimento.
+        console.log(`onCloseHistoricAttendance`,attendance);
+      },
+      'onChatPage': () =>{
+        // Evento é emitido quando se navega para a tela de atendimentos.
+        console.log(`onChatPage`);
+      },
+      'onHistoricPage': () =>{
+        // Evento é emitido quando se navega para a página de histórico de atendimentos.
+        console.log(`onHistoricPage`);
+      }
     },
     navbar: [
       {
@@ -256,10 +300,19 @@ Função retorna um objeto com `userId` e `systemId`.
 ~~~
 
 
-## Abrir página dentro do sistema <span id="open-page"></span>
+## Abrir página dentro do sistema. <span id="open-page"></span>
 
 ~~~
   window.WlExtension.openPage({
     url: 'https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme'
   });
 ~~~
+
+## Carrega página no widget da extensão. <span id="load"></span>
+
+~~~
+  window.WlExtension.load({
+    url: 'https://chatlabel.com/extension-demo/acoes.php'
+  });
+~~~
+
