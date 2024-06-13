@@ -1,20 +1,20 @@
 # Exemplo extensão WL.
 
-Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ele fornece um objeto global `window.WlExtensions`, para utilizar basta importar a biblioteca no seu arquivo html.
+Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ela fornece um objeto global `window.WlExtension`, para utilizar basta importar a biblioteca no seu arquivo `.html`.
 
 
-### Lista de métodos da `window.WLExtensions`
+### Lista de métodos da `window.WlExtension`
 
- - [WLExtensions.initilize(options);](#initilize)
- - [WLExtensions.modal(options);](#modal)
- - [WLExtensions.closeModal();](#close-modal)
- - [WLExtensions.alert(options);](#alert)
- - [WLExtensions.confirmDialog(options);](#confirm-dialog)
- - [WLExtensions.alert(options);](#alert)
- - [WLExtensions.getInfoChannels();](#get-channels)
- - [WLExtensions.getInfoUser();](#get-user)
- - [WLExtensions.openPage();](#open-page)
- - [WLExtensions.load();](#load)
+ - [WlExtension.initialize(options);](#initialize)
+ - [WlExtension.modal(options);](#modal)
+ - [WlExtension.closeModal();](#close-modal)
+ - [WlExtension.alert(options);](#alert)
+ - [WlExtension.confirmDialog(options);](#confirm-dialog)
+ - [WlExtension.alert(options);](#alert)
+ - [WlExtension.getInfoChannels();](#get-channels)
+ - [WlExtension.getInfoUser();](#get-user)
+ - [WlExtension.openPage();](#open-page)
+ - [WlExtension.load();](#load)
 
 
 Ex:
@@ -25,14 +25,14 @@ Ex:
 
 --------
 
-## .initilize  <span id="initilize"></span>
+## .initialize  <span id="initialize"></span>
 
 
-- Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definir botões e ações que serão configuradas quando a sua extensão for carregada no sistema.
+- Após importar podemos utilizar a função `window.WlExtension.initialize()` para definir botões e ações que serão configuradas quando a sua extensão for carregada no sistema.
 
 ### Botões de ações
 
-  Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
+  Podemos definir botões no topo da lista de contatos, lista de atendimento ou topo da tela atendimento.
 
 - Lista de contatos, `contacts-list`
 
@@ -49,7 +49,7 @@ Ex:
 
 ### Novo menu na navbar
 
-Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initilize()`.
+Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initialize()`.
 
 ~~~
   navbar: [
@@ -80,7 +80,7 @@ Opções de tipo de menu:
 - `item` - Cria um botão, podemos pegar evento `callback` na propriedade quando for clicado.
 
 
-Tambem podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
+Também podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
 
 - Atendimentos  id: `services`
 - Indicadores id: `indications`
@@ -94,7 +94,7 @@ Tambem podemos criar um item dentro de um menu já existente, colocando o id do 
 
 
 ### Eventos 
-O sistema emite vários eventos, e podemos defini-los na propriedade events. Abaixo, segue a lista de eventos emitidos pelo sistema: 
+O sistema emite vários eventos, e podemos defini-los na propriedade `events`. Abaixo, segue a lista de eventos emitidos pelo sistema: 
 
 * `onOpenAttendance`: Evento é emitido quando se clica no atendimento.
 * `onFocusAttendance`: Evento é emitido quando o atendimento recebe foco.
@@ -109,7 +109,7 @@ O sistema emite vários eventos, e podemos defini-los na propriedade events. Aba
 Ex: 
 
 ~~~
-  window.WlExtensions.initilize({
+  window.WlExtension.initialize({
     buttons: {
       'contacts-list': [
           {
