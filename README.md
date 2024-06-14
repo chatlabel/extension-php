@@ -1,38 +1,38 @@
 # Exemplo extensão WL.
 
-Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ele fornece um objeto global `window.WlExtensions`, para utilizar basta importar a biblioteca no seu arquivo html.
+Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ela fornece um objeto global `window.WlExtension`, para utilizar basta importar a biblioteca no seu arquivo `.html`.
 
 
-### Lista de métodos da `window.WLExtensions`
+### Lista de métodos da `window.WlExtension`
 
- - [WLExtensions.initilize(options);](initilize)
- - [WLExtensions.modal(options);](#modal)
- - [WLExtensions.closeModal();](#close-modal)
- - [WLExtensions.alert(options);](#alert)
- - [WLExtensions.confirmDialog(options);](#confirm-dialog)
- - [WLExtensions.alert(options);](#alert)
- - [WLExtensions.getInfoChannels();](#get-channels)
- - [WLExtensions.getInfoUser();](#get-user)
- - [WLExtensions.openPage();](#open-page)
-
+ - [WlExtension.initialize(options);](#initialize)
+ - [WlExtension.modal(options);](#modal)
+ - [WlExtension.closeModal();](#close-modal)
+ - [WlExtension.alert(options);](#alert)
+ - [WlExtension.confirmDialog(options);](#confirm-dialog)
+ - [WlExtension.alert(options);](#alert)
+ - [WlExtension.getInfoChannels();](#get-channels)
+ - [WlExtension.getInfoUser();](#get-user)
+ - [WlExtension.openPage();](#open-page)
+ - [WlExtension.load();](#load)
 
 
 Ex:
 
 ~~~
-<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
+<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient-0.0.2.js"></script>
 ~~~
 
 --------
 
-## .initilize  <span id="initilize"></span>
+## .initialize  <span id="initialize"></span>
 
 
-- Após importar podemos utilizar a função `window.WlExtensions.initilize()` para definimos botões e ações que será definida quando sua extensão for carregada no sistema;
+- Após importar podemos utilizar a função `window.WlExtension.initialize()` para definir botões e ações que serão configuradas quando a sua extensão for carregada no sistema.
 
 ### Botões de ações
 
-  Podemos definir botões no topo da lista de contatos,lista de atendimento ou topo da tela atendimento.
+  Podemos definir botões no topo da lista de contatos, lista de atendimento ou topo da tela atendimento.
 
 - Lista de contatos, `contacts-list`
 
@@ -49,7 +49,7 @@ Ex:
 
 ### Novo menu na navbar
 
-Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initilize()`.
+Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initialize()`.
 
 ~~~
   navbar: [
@@ -80,7 +80,7 @@ Opções de tipo de menu:
 - `item` - Cria um botão, podemos pegar evento `callback` na propriedade quando for clicado.
 
 
-Tambem podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
+Também podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
 
 - Atendimentos  id: `services`
 - Indicadores id: `indications`
@@ -92,10 +92,24 @@ Tambem podemos criar um item dentro de um menu já existente, colocando o id do 
 
 ![Menu lateral](./docs/prints/navbar.png)
 
+
+### Eventos 
+O sistema emite vários eventos, e podemos defini-los na propriedade `events`. Abaixo, segue a lista de eventos emitidos pelo sistema: 
+
+* `onOpenAttendance`: Evento é emitido quando se clica no atendimento.
+* `onFocusAttendance`: Evento é emitido quando o atendimento recebe foco.
+* `onCloseAttendance`: Evento é emitido quando a tela do atendimento é fechada.
+* `onOpenHistoricAttendance`: Evento é emitido quando se clica no atendimento no histórico de atendimento.
+* `onCloseHistoricAttendance`: Evento é emitido quando a tela do atendimento é fechada na página de histórico de atendimento.
+* `onChatPage`: Evento é emitido quando se navega para a tela de atendimentos.
+* `onHistoricPage`: Evento é emitido quando se navega para a página de histórico de atendimentos.
+
+
+
 Ex: 
 
 ~~~
-  window.WlExtensions.initilize({
+  window.WlExtension.initialize({
     buttons: {
       'contacts-list': [
           {
@@ -122,6 +136,36 @@ Ex:
             },
           }
         ]
+    },
+    events: {
+      'onOpenAttendance': (attendance) => {
+        // Evento é emitido quando se clica no atendimento.
+        console.log(`onOpenAttendance`,attendance);
+      },
+      'onFocusAttendance': (attendance) => {
+        // Evento é emitido quando o atendimento recebe foco.
+        console.log(`onFocusAttendance`,attendance);
+      },
+      'onCloseAttendance': (attendance) => {
+        // Evento é emitido quando a tela do atendimento é fechada.
+        console.log(`onCloseAttendance`,attendance);
+      },
+      'onOpenHistoricAttendance': (attendance) =>{
+        // Evento é emitido quando se clica no atendimento no histórico de atendimento.
+        console.log(`onOpenHistoricAttendance`,attendance);
+      },
+      'onCloseHistoricAttendance': (attendance) =>{
+        // Evento é emitido quando a tela do atendimento é fechada na página de histórico de atendimento.
+        console.log(`onCloseHistoricAttendance`,attendance);
+      },
+      'onChatPage': () =>{
+        // Evento é emitido quando se navega para a tela de atendimentos.
+        console.log(`onChatPage`);
+      },
+      'onHistoricPage': () =>{
+        // Evento é emitido quando se navega para a página de histórico de atendimentos.
+        console.log(`onHistoricPage`);
+      }
     },
     navbar: [
       {
@@ -256,10 +300,19 @@ Função retorna um objeto com `userId` e `systemId`.
 ~~~
 
 
-## Abrir página dentro do sistema <span id="open-page"></span>
+## Abrir página dentro do sistema. <span id="open-page"></span>
 
 ~~~
   window.WlExtension.openPage({
     url: 'https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme'
   });
 ~~~
+
+## Carrega página no widget da extensão. <span id="load"></span>
+
+~~~
+  window.WlExtension.load({
+    url: 'https://chatlabel.com/extension-demo/acoes.php'
+  });
+~~~
+
