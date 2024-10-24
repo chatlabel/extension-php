@@ -14,13 +14,14 @@ Montamos uma pequena biblioteca javascript para facilitar a interação com noss
  - [WlExtension.getInfoChannels();](#get-channels)
  - [WlExtension.getInfoUser();](#get-user)
  - [WlExtension.openPage();](#open-page)
+ - [WlExtension.openWidget();](#open-widget)
  - [WlExtension.load();](#load)
 
 
 Ex:
 
 ~~~
-<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient-0.0.2.js"></script>
+<script src="https://fileschat.sfo2.cdn.digitaloceanspaces.com/public/libs/wlclient.js"></script>
 ~~~
 
 --------
@@ -36,20 +37,20 @@ Ex:
 
 - Lista de contatos, `contacts-list`
 
-![Lista de contatos](./docs/prints/list-contacts.png)
+![Lista de contatos](assets/prints/list-contacts.png)
 
 - Lista de atendimento, `attendance-list`
 
-![Lista de contatos](./docs/prints/attendance-list.png)
+![Lista de contatos](assets/prints/attendance-list.png)
 
 - Topo da tela atendimento, `attendance-view`
 
-![Topo da tela atendimento](./docs/prints/attendance-view.png)
+![Topo da tela atendimento](assets/prints/attendance-view.png)
 
 
 ### Novo menu na navbar
 
-Tambem podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initialize()`.
+Também podemos definir novos menus, precisamos somente definir a opção `navbar` dentro de `.initialize()`.
 
 ~~~
   navbar: [
@@ -76,25 +77,25 @@ Tambem podemos definir novos menus, precisamos somente definir a opção `navbar
 
 
 Opções de tipo de menu:
-- `group` - cria um grupo.
-- `item` - Cria um botão, podemos pegar evento `callback` na propriedade quando for clicado.
+- `group` - Cria um grupo de botões.
+- `item` - Cria um botão, onde acionará o evento de `callback` da propriedade quando for clicado.
 
 
-Também podemos criar um item dentro de um menu já existente, colocando o id do grupo na propriedade `parentId`, hoje temos seguinte grupos de menu.
+Também podemos criar um item num menu já existente, colocando o ID do grupo na propriedade `parentId`. Hoje temos os seguintes grupos de menu e seus IDs, respectivamente:
 
-- Atendimentos  id: `services`
-- Indicadores id: `indications`
-- Ajuda id: `help`
-- Administrativos id: `admins`
-- Módulos id: `modules`
-- Financeiro id: `financial`
+- Atendimentos: `services`
+- Indicadores: `indications`
+- Ajuda: `help`
+- Administrativos: `admins`
+- Módulos: `modules`
+- Financeiro: `financial`
 
 
-![Menu lateral](./docs/prints/navbar.png)
+![Menu lateral](assets/prints/navbar.png)
 
 
 ### Eventos 
-O sistema emite vários eventos, e podemos defini-los na propriedade `events`. Abaixo, segue a lista de eventos emitidos pelo sistema: 
+O sistema emite diversos eventos, e podemos definir callbacks a eles na propriedade `events`. Abaixo, segue a lista de eventos emitidos pelo sistema: 
 
 * `onOpenAttendance`: Evento é emitido quando se clica no atendimento.
 * `onFocusAttendance`: Evento é emitido quando o atendimento recebe foco.
@@ -211,10 +212,10 @@ Ex:
         }
       },
     ]
-  })
+  });
 ~~~
 
-*Nos botões tipo `attendance-view` o callback retorna um objeto no primeiro argumento com atendimento em foco.*
+*Nos botões de tipo `attendance-view`, o callback retorna um objeto no primeiro argumento com as informações do atendimento em foco.*
 
 
 
@@ -235,7 +236,7 @@ Ex:
 ~~~
 
 ## Fecha modal <span id="close-modal"></span>
-ao usar funcao `.closeModal()` podemos um objeto com argumentos para recuperar no callback definido na função `.modal({})`.
+Ao usar a função `.closeModal()`, podemos enviar um objeto com argumentos para recuperar no callback definido na função `.modal({})`.
 
 ~~~
  window.WlExtension.closeModal({
@@ -245,11 +246,11 @@ ao usar funcao `.closeModal()` podemos um objeto com argumentos para recuperar n
 ~~~
 
 ## Emitir alerta <span id="alert"></span>
-Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
+Tipos diponíveis de alerta: ``sucess`` / ``error`` / ``warning``
 
 ~~~
  window.WlExtension.alert({
-    message: 'Alert da suceso',
+    message: 'Alerta de suceso',
     variant: 'success' // success, error, warning
   });
 ~~~
@@ -261,22 +262,11 @@ Tipo diponiveis de alerta: ``sucess`` / ``error`` / ``warning``
   window.WlExtension.confirmDialog({
     title: 'Dialog de confirmação',
     text: 'Exemplo de texto para tela de confirmação.',
-    callback: (confirm) =>{
+    callback: (confirm) => {
       alert('Resultado: ' + JSON.stringify(confirm));
     }
   });
 ~~~
-
-## Abrir um alerta <span id="alert"></span>
-
-~~~
-  window.WlExtension.alert({
-    message: 'Alert da suceso',
-    variant: 'success' // success, error, warning
-  });
-~~~
-
-
 
 ## Busca lista de canal disponível para usuário <span id="get-channels"></span>
 
@@ -296,9 +286,8 @@ Função retorna um objeto com `userId` e `systemId`.
     .then((data) => {
       console.log(data.userId);
       console.log(data.systemKey)
-    })
+    });
 ~~~
-
 
 ## Abrir página dentro do sistema. <span id="open-page"></span>
 
@@ -306,6 +295,15 @@ Função retorna um objeto com `userId` e `systemId`.
   window.WlExtension.openPage({
     url: 'https://br.widgets.investing.com/live-currency-cross-rates?theme=darkTheme'
   });
+~~~
+
+## Abrir widget de onde foi carregado a extensão. <span id="open-widget"></span>
+
+A função só trará algum resultado no caso da extensão ter sido carregada por dentro de uma extensão de tipo WIDGET.
+Fará com que a aba do Widget seja aberta na tela do atendente.
+
+~~~
+  window.WlExtension.openWidget();
 ~~~
 
 ## Carrega página no widget da extensão. <span id="load"></span>
