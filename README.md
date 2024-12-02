@@ -1,4 +1,4 @@
-# Exemplo extensão WL.
+# Exemplo extensão WL
 
 Montamos uma pequena biblioteca javascript para facilitar a interação com nosso sistema. Ela fornece um objeto global `window.WlExtension`, para utilizar basta importar a biblioteca no seu arquivo `.html`.
 
@@ -84,7 +84,7 @@ Opções de tipo de menu:
 Também podemos criar um item num menu já existente, colocando o ID do grupo na propriedade `parentId`. Hoje temos os seguintes grupos de menu e seus IDs, respectivamente:
 
 - Atendimentos: `services`
-- Indicadores: `indications`
+- Indicadores: `indicators`
 - Ajuda: `help`
 - Administrativos: `admins`
 - Módulos: `modules`
@@ -246,7 +246,7 @@ Ao usar a função `.closeModal()`, podemos enviar um objeto com argumentos para
 ~~~
 
 ## Emitir alerta <span id="alert"></span>
-Tipos diponíveis de alerta: ``sucess`` / ``error`` / ``warning``
+Tipos disponíveis de alerta: ``sucess`` / ``error`` / ``warning``
 
 ~~~
  window.WlExtension.alert({
@@ -277,7 +277,7 @@ Tipos diponíveis de alerta: ``sucess`` / ``error`` / ``warning``
     });
 ~~~
 
-## Busca infomação do usuário logado. <span id="get-user"></span>
+## Busca infomação do usuário logado <span id="get-user"></span>
 
 Função retorna um objeto com `userId` e `systemId`.
 
@@ -289,7 +289,7 @@ Função retorna um objeto com `userId` e `systemId`.
     });
 ~~~
 
-## Abrir página dentro do sistema. <span id="open-page"></span>
+## Abrir página dentro do sistema <span id="open-page"></span>
 
 ~~~
   window.WlExtension.openPage({
@@ -297,16 +297,16 @@ Função retorna um objeto com `userId` e `systemId`.
   });
 ~~~
 
-## Abrir widget de onde foi carregado a extensão. <span id="open-widget"></span>
+## Abrir widget da extensão <span id="open-widget"></span>
 
-A função só trará algum resultado no caso da extensão ter sido carregada por dentro de uma extensão de tipo WIDGET.
-Fará com que a aba do Widget seja aberta na tela do atendente.
+A função só trará algum resultado no caso da extensão ter sido carregada por uma extensão de tipo WIDGET.
+Fará com que a aba do Widget seja aberta na tela do usuário.
 
 ~~~
   window.WlExtension.openWidget();
 ~~~
 
-## Carrega página no widget da extensão. <span id="load"></span>
+## Carrega página no widget da extensão <span id="load"></span>
 
 ~~~
   window.WlExtension.load({
