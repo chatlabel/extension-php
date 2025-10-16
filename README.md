@@ -37,7 +37,7 @@ Ex:
 
 - Lista de contatos, `contacts-list`
 
-![Lista de contatos](assets/prints/list-contacts.png)
+![Lista de contatos](assets/prints/contacts-list.png)
 
 - Lista de atendimento, `attendance-list`
 
